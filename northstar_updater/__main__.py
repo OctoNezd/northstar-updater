@@ -16,7 +16,7 @@ from zipfile import ZipFile
 import shutil
 from tqdm import tqdm
 IS_NUITKA = "__compiled__" in locals()
-launcherVer = "0.0.1"
+launcherVer = "0.0.2"
 
 
 def create_link_text(text, target):
@@ -73,8 +73,7 @@ def download(url: str, io: BytesIO):
 
 
 def get_titanfall_folder():
-    if sys.argv[0].endswith(".exe") and not os.getenv("TESTING", False):
-
+    if (sys.argv[0].endswith(".exe") and not os.getenv("TESTING", False)) or os.getenv("REAL_TITANFALL", False):
         try:
             key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\Respawn\Titanfall2", 0,
                                  winreg.KEY_READ | winreg.KEY_WOW64_32KEY)
@@ -142,7 +141,8 @@ def main():
                 zip.extract(filename, TFALL_FOLDER)
         with open(f"{TFALL_FOLDER}nhtf_version.txt", 'w') as f:
             f.write(northstar["name"])
-    print("All set, let's play!", f"{TFALL_FOLDER}NorthstarLauncher.exe")
+    print("All set, let's play!")
+    os.chdir(TFALL_FOLDER)
     os.system(f"{TFALL_FOLDER}NorthstarLauncher.exe")
 
 
