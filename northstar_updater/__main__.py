@@ -74,12 +74,13 @@ def download(url: str, io: BytesIO):
 
 def get_titanfall_folder():
     if sys.argv[0].endswith(".exe") and not os.getenv("TESTING", False):
-        key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\Respawn\Titanfall2", 0,
-                             winreg.KEY_READ | winreg.KEY_WOW64_32KEY)
+
         try:
+            key = winreg.OpenKey(winreg.HKEY_LOCAL_MACHINE, "SOFTWARE\Respawn\Titanfall2", 0,
+                                 winreg.KEY_READ | winreg.KEY_WOW64_32KEY)
             return winreg.QueryValueEx(key, 'Install Dir')[0]
-        except OSError as e:
-            if e.errno == errno.ENOENT:
+        except (FileNotFoundError, OSError) as e:
+            if isinstance(e, FileNotFoundError) or (isinstance(e, OSError) and e.errno == errno.ENOENT):
                 print(
                     "You don't seem to have Titanfall 2 installed. If you do, this is a bug, please report.")
                 anykey()
