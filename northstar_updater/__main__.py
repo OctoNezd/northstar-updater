@@ -236,7 +236,6 @@ if __name__ == '__main__':
         print("Please report your bugs in #nstar-launcher of",
               create_link_text("discord.harmony.tf",
                                "discord.harmony.tf"))
-        input()
         if not os.path.exists(TFALL_FOLDER + "updater.exe"):
             initial_setup()
         main()
