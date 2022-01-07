@@ -208,7 +208,7 @@ def initial_setup():
         userchoice("Worry not, there is a solution. However, this will require Admin rights and will give your user full control of game folder. "
                    "Do you have admin rights and do you want to continue?")
         run_as_admin("icacls.exe", [
-                     TFALL_FOLDER, f"/grant {getpass.getuser()}:(OI)(CI)F /T"])
+                     f'"{TFALL_FOLDER}"', f"/grant {getpass.getuser()}:(OI)(CI)F /T"])
     print("Installing updater...")
     if IS_NUITKA:
         source = sys.argv[0]
