@@ -9,5 +9,5 @@ Download latest version of updater https://github.com/OctoNezd/northstar-updater
 ## Build
 
 1. `poetry install`
-2. `poetry run python -m nuitka --onefile northstar_updater`
+2. `poetry run python -m nuitka --onefile --windows-icon-from-ico=icon.png northstar_updater`
 3. Done
