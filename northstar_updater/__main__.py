@@ -199,7 +199,6 @@ IconIndex=0
 def initial_setup():
     print("Initial setup!")
     print("First of all, let's check whether we can write to Titanfall folder...")
-    # https://stackoverflow.com/a/25868839
     if is_writable(TFALL_FOLDER):
         print(bcolors.OKGREEN, "We can write to Titanfall folder!",
               bcolors.ENDC, sep='')
