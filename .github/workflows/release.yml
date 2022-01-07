@@ -1,38 +1,36 @@
 name: "tagged-release"
 
 on:
-  workflow_dispatch:
-  push:
-    tags:
-      - "v*"
+    workflow_dispatch:
+    push:
+        tags:
+            - "v*"
 
 jobs:
-  tagged-release:
-    name: "Tagged Release"
-    runs-on: "windows-latest"
+    tagged-release:
+        name: "Tagged Release"
+        runs-on: "windows-latest"
 
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2.4.0
-      - name: Setup Python
-        uses: actions/setup-python@v2.3.1
-        with:
-          python-version: 3.9
-      - name: Setup Poetry
-        # You may pin to the exact commit or the version.
-        # uses: Gr1N/setup-poetry@09236184f6c1ab47c0dc9c1001c7fe200cf2afb0
-        uses: Gr1N/setup-poetry@v7
-      - name: Poetry install
-        run: |
-          poetry install
-      - name: Create nuitka exe
-        run: |
-          poetry run python -m nuitka --onefile --windows-icon-from-ico=icon.png northstar_updater
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2.4.0
+            - name: Setup Python
+              uses: actions/setup-python@v2.3.1
+              with:
+                  python-version: 3.9
+            - name: Setup Poetry
+              uses: Gr1N/setup-poetry@v7
+            - name: Poetry install
+              run: |
+                  poetry install
+            - name: Create nuitka exe
+              run: |
+                  poetry run python -m nuitka --onefile --windows-icon-from-ico=icon.png --assume-yes-for-downloads northstar_updater
 
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          draft: true
-          prerelease: false
-          files: |
-            *.exe
+            - uses: "marvinpinto/action-automatic-releases@latest"
+              with:
+                  repo_token: "${{ secrets.GITHUB_TOKEN }}"
+                  draft: true
+                  prerelease: false
+                  files: |
+                      *.exe
