@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+Fakefall2/
+
+*.exe
+
+# nuitka
+*.build
+*.dist
+*.onefile-build
